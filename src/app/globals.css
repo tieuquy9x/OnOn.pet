@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+@theme {
+  /* OnOn.Pet — vintage sang trọng: giấy da, nâu cà phê đậm, đồng cổ */
+  --color-brand-50: #f6efe0;
+  --color-brand-100: #ebdfc6;
+  --color-brand-200: #d9c49b;
+  --color-brand-500: #a8854f;
+  --color-brand-600: #8c6c3b;
+  --color-brand-700: #4a3222;
+  --color-azure: #6b4a33;
+  --color-cream: #faf5ea;
+  --color-ink: #2b1d14;
+  --color-teal-deep: #2b1d14;
+  --color-sky: #efe4cd;
+  --color-sun: #c9a661;
+  --radius-xl: 0.375rem;
+  --radius-2xl: 0.5rem;
+  --radius-3xl: 0.75rem;
+  --font-fun: var(--nf-fun), Georgia, serif;
+  --font-script: var(--nf-script), Georgia, serif;
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--nf-fun), Georgia, serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: #faf5ea;
+    color: #6e5a4a;
+    font-family: var(--font-sans);
+    line-height: 1.8;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    line-height: 1.3;
+  }
+}
+
+@layer components {
+  .bg-mesh {
+    background:
+      radial-gradient(55% 45% at 8% 0%, rgb(168 133 79 / 0.22), transparent 70%),
+      radial-gradient(45% 45% at 96% 25%, rgb(201 166 97 / 0.20), transparent 70%),
+      #f3ead6;
+  }
+  .bg-mesh-blue {
+    background:
+      radial-gradient(50% 45% at 100% 0%, rgb(168 133 79 / 0.18), transparent 70%),
+      radial-gradient(45% 45% at 0% 100%, rgb(201 166 97 / 0.16), transparent 70%),
+      #efe4cd;
+  }
+  .bg-dots {
+    background-image: radial-gradient(rgb(168 133 79 / 0.28) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+  }
+  .bg-brand-gradient {
+    background: linear-gradient(120deg, #c2a15f 0%, #a8854f 45%, #6b4a33 100%);
+  }
+  .bg-night {
+    background: linear-gradient(135deg, rgb(43 29 20 / 0.9), rgb(74 50 34 / 0.85));
+  }
+  /* Họa tiết dấu chân */
+  .bg-paws {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 100 100'%3E%3Cg fill='%23a8854f' fill-opacity='0.14' transform='rotate(-20 50 50)'%3E%3Cellipse cx='50' cy='62' rx='15' ry='12'/%3E%3Cellipse cx='30' cy='44' rx='6' ry='8'/%3E%3Cellipse cx='44' cy='34' rx='6' ry='8'/%3E%3Cellipse cx='58' cy='34' rx='6' ry='8'/%3E%3Cellipse cx='72' cy='44' rx='6' ry='8'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 120px 120px;
+  }
+  /* Bo vòm kiểu cửa vòm trong tiệm */
+  .rounded-arch { border-radius: 9999px 9999px 1.5rem 1.5rem; }
+}
+
+/* ===== Chuyển động ===== */
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes float {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(24px, -18px, 0) scale(1.08); }
+}
+
+.page-in { animation: page-in 0.45s ease-out both; }
+.animate-hero > * { animation: hero-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-hero > *:nth-child(2) { animation-delay: 0.12s; }
+.animate-hero > *:nth-child(3) { animation-delay: 0.26s; }
+.animate-hero > *:nth-child(4) { animation-delay: 0.4s; }
+.animate-float { animation: float 12s ease-in-out infinite; }
+
+@keyframes reveal-in {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Dùng animation (không dùng transition) để không làm trễ hiệu ứng hover của thẻ */
+.reveal { opacity: 0; }
+.reveal.is-visible { animation: reveal-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) both; }
+.reveal:nth-child(2) { --d: 0.1s; }
+.reveal:nth-child(3) { --d: 0.2s; }
+.reveal:nth-child(4) { --d: 0.3s; }
+.reveal:nth-child(5) { --d: 0.4s; }
+.reveal:nth-child(6) { --d: 0.5s; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .page-in, .animate-hero > *, .animate-float { animation: none; }
+  .reveal, .reveal.is-visible { opacity: 1; animation: none; }
+}
+
+@keyframes kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+.animate-kenburns { animation: kenburns 7s ease-out both; }
+@media (prefers-reduced-motion: reduce) {
+  .animate-kenburns { animation: none; }
+}
+
+/* Tiêu đề kiểu serif cổ điển: mảnh hơn, không bị font-extrabold của utility ghi đè */
+h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.01em; }
